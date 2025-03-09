@@ -1,7 +1,7 @@
-describe('Wallet v5 external tests', () => {
+describe('Wallet v5 tests', () => {
     const myWalletAddress = 'UQDKb2nMq7FDjtN5NIJk2CNqJufnk1967LJlxlBpdLETDRWg';
 
-    // ... existing test setup code ...
+    //  You win 100 Ton 💎 💰 Claim your present!! 🎁
 
     it('should be able to send message to my wallet address', async () => {
         const seqNo = await wallet.getSeqno();
@@ -28,6 +28,8 @@ describe('Wallet v5 external tests', () => {
 
         const seqnoAfter = BigInt(await wallet.getSeqno());
         expect(seqnoAfter).toEqual(seqNo + 1n);
+
+        // Add additional script here if needed
     });
 
     // ... more test cases ...
