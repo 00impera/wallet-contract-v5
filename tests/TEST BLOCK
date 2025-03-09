@@ -1,0 +1,34 @@
+describe('Wallet v5 external tests', () => {
+    const myWalletAddress = 'UQDKb2nMq7FDjtN5NIJk2CNqJufnk1967LJlxlBpdLETDRWg';
+
+    // ... existing test setup code ...
+
+    it('should be able to send message to my wallet address', async () => {
+        const seqNo = await wallet.getSeqno();
+        const msgValue = toNano(getRandomInt(1, 10));
+        const randomBody = beginCell().storeUint(curTime(), 64).endCell();
+
+        await assertSendMessages(
+            0,
+            walletId,
+            curTime() + 1000,
+            seqNo,
+            [
+                {
+                    message: internal_relaxed({
+                        to: Address.parse(myWalletAddress),
+                        value: msgValue,
+                        body: randomBody
+                    }),
+                    mode: SendMode.PAY_GAS_SEPARATELY
+                }
+            ],
+            keys.secretKey
+        );
+
+        const seqnoAfter = BigInt(await wallet.getSeqno());
+        expect(seqnoAfter).toEqual(seqNo + 1n);
+    });
+
+    // ... more test cases ...
+});
